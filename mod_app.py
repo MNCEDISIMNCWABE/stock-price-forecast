@@ -19,7 +19,8 @@ st.title('Closing Stock Price Predictions')
 
 # Add disclaimer to the sidebar
 st.sidebar.markdown("""
-**Disclaimer:** This is not investment advice. The purpose of this app is to demonstrate machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.
+**Disclaimer:** This is not investment advice. The purpose of this app is to demonstrate 
+machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.
 """)
 
 # Allow the user to input a ticker symbol
