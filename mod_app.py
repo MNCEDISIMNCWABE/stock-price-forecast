@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 # Set the default ticker symbol
-DEFAULT_TICKER = 'WHL.JO'
+DEFAULT_TICKER = 'AAPL'
 
 # Define the Streamlit app
 st.title('Closing Stock Price Forecasting App')
@@ -33,11 +33,34 @@ results = run_prophet(model, start_date, end_date)
 # Plot the predicted closing prices for the selected ticker and date range
 st.write("Prediction Plot:")
 fig = plot_plotly(model, results)
+
+# Create a trace for the actual closing prices
+trace_actual = go.Scatter(
+    x=results['ds'],
+    y=results['y'],
+    mode='lines',
+    name='Actual Closing Price'
+)
+
+# Add the actual closing prices trace to the plot
+fig.add_trace(trace_actual)
+
+# Add a legend to the plot
+fig.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.3,
+        xanchor="center",
+        x=0.5
+    )
+)
+
 st.plotly_chart(fig)
 
 # Rename the columns of the results dataframe
-results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound'})
+results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound', 'y': 'Actual Price'})
 
-# Display the predicted closing prices for the selected ticker and date range
-st.write('Predicted Closing Stock Prices:')
+# Display the predicted and actual closing prices for the selected ticker and date range
+st.write('Predicted and Actual Closing Stock Prices:')
 st.write(results)
