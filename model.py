@@ -14,11 +14,11 @@ def get_model(ticker):
     data = ticker_obj.history(period='max', interval='1d')[['Close']]
     data = data.rename(columns={'Close': 'y'})
     data.columns = ['y']
-    data['ds'] = data.index
+    data['Date'] = data.index
     data['y'] = data['y']/100
 
     # Convert timezone-aware column to timezone-naive column
-    data['ds'] = data['ds'].dt.tz_localize(None)
+    data['Date'] = data['Date'].dt.tz_localize(None)
 
     # Fit a Prophet model to the data
     model = Prophet(interval_width=0.95)
@@ -35,7 +35,6 @@ def run_prophet(model, start_date, end_date):
 
     # Filter prediction for selected date range
     forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
-    forecast = forecast.rename(columns={'ds':'Date', 'yhat': 'Predicted Price','yhat_lower':'Predicted Lower Bound',
-                                        'yhat_upper':'Predicted Upper Bound'})
+    forecast = forecast.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound'})
 
-    return forecast[['Date', 'Predicted Price','Predicted Lower Bound','Predicted Upper Bound']]
+    return forecast[['Date', 'Predicted Price', 'Predicted Lower Bound', 'Predicted Upper Bound']]
