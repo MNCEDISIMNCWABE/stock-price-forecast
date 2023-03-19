@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 
 
 # Set the default ticker symbol
-DEFAULT_TICKER = 'AAPL'
+DEFAULT_TICKER = 'WHL.JO'
 
 # Define the Streamlit app
 st.title('Closing Stock Price Forecasting App')
