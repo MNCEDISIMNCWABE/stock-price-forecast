@@ -19,9 +19,13 @@ st.title('Closing Stock Price Predictions')
 
 # Add disclaimer to the sidebar
 st.sidebar.markdown("""
-**Disclaimer:** This is not investment advice. The purpose of this app is to demonstrate 
-machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.
+**Disclaimer:**  
+Please note that the author of this app is not a financial advisor and does not provide any investment advice. 
+The purpose of this app is only to demonstrate machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.  
+
+Author:[LinkedIn profile](https://www.linkedin.com/in/mncedisi-mncwabe-a1b087171/).
 """)
+
 
 # Allow the user to input a ticker symbol
 ticker_input = st.text_input('Enter Company Symbol', DEFAULT_TICKER)
