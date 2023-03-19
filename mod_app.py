@@ -6,7 +6,7 @@
 
 import streamlit as st
 import pandas as pd
-from fbprophet import Prophet
+from prophet import Prophet
 import model
 
 # Set page title
