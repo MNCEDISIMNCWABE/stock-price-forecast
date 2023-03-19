@@ -1,29 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[2]:
 
 
 import pandas as pd
-import numpy as np
-import yfinance as yf
 from prophet import Prophet
 
-def train_model(ticker, start_date, end_date):
-    # Download data
-    data = yf.download(ticker, start=start_date, end=end_date)[['Close']]
-    data.columns = ['y']
-    data['ds'] = data.index
-    
+def train_model(ticker):
+    # Download data from 2014-01-02 to current date
+    df = pd.read_csv(f"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1=1388552400&period2=1616197200&interval=1d&events=history&includeAdjustedClose=true")
+
+    # Prepare data for Prophet model
+    df = df[['Date', 'Close']]
+    df = df.rename(columns={'Date': 'ds', 'Close': 'y'})
+
     # Train model
     model = Prophet(interval_width=0.95)
-    model.fit(data)
+    model.fit(df)
 
-    # Make predictions
-    future = model.make_future_dataframe(periods=365)
-    forecast = model.predict(future)
-    forecast = forecast[['ds', 'yhat', 'yhat_upper', 'yhat_lower']]
-    forecast = forecast.set_index('ds')
-
-    return model, forecast
+    return model
 

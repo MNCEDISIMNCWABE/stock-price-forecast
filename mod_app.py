@@ -6,57 +6,44 @@
 
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-from model import train_model
-
-# Set start and end dates for data download
-start_date = '2014-01-02'
-end_date = pd.to_datetime("today").strftime("%Y-%m-%d")   
+from fbprophet import Prophet
+import model
 
 # Set page title
-st.set_page_config(page_title='Stock Price Prediction', layout='wide')
+st.set_page_config(page_title="Stock Price Prediction App")
 
-# Define function to plot stock price predictions
-def plot_predictions(predictions):
-    fig = px.line(predictions, x=predictions.index, y='yhat', title='Stock Price Predictions')
-    fig.update_layout(
-        xaxis_title='Date',
-        yaxis_title='Stock Price',
-        legend_title=None,
-        width=1200,
-        height=600
-    )
-    st.plotly_chart(fig)
+# Set page title and subtitle
+st.title("Stock Price Prediction App")
+st.write("This app predicts the future stock prices of the selected company.")
 
-# Define function to get user inputs
-def get_inputs():
-    tickers = st.text_input("Enter ticker symbols separated by commas (e.g., AAPL,MSFT)").upper().split(',')
-    start_date = st.date_input("Enter start date", value=pd.to_datetime("today") - pd.Timedelta(days=365))
-    end_date = st.date_input("Enter end date", value=pd.to_datetime("today"))
-    return tickers, start_date, end_date
+# Set up user input
+tickers = st.text_input("Enter the tickers separated by commas (e.g., AAPL,GOOG,IBM)", value='CLS.JO')
+start_date = st.date_input("Start date:")
+end_date = st.date_input("End date:")
 
-# Main function to run the app
-def main():
-    # Get user inputs
-    tickers, start_date, end_date = get_inputs()
+# Train models for each ticker
+models = {}
+for ticker in tickers.split(','):
+    models[ticker] = model.train_model(ticker)
 
-    # Download data and train models for each ticker
-    models = {}
-    predictions = pd.DataFrame(columns=['ds'])
-    for ticker in tickers:
-        model, forecast = train_model(ticker, start_date, end_date)
-        models[ticker] = model
-        forecast.columns = ['yhat', 'yhat_upper', 'yhat_lower']
-        forecast['ticker'] = ticker
-        predictions = pd.concat([predictions, forecast], axis=0)
+# Make predictions
+predictions = {}
+for ticker in tickers.split(','):
+    # Create future dataframe
+    future = models[ticker].make_future_dataframe(periods=(end_date - start_date).days)
 
-    # Plot stock price predictions
-    if not predictions.empty:
-        predictions.reset_index(inplace=True)
-        predictions = predictions.pivot(index='ds', columns='ticker', values='yhat')
-        st.write(predictions)
-        plot_predictions(predictions)
+    # Make prediction
+    forecast = models[ticker].predict(future)
 
-if __name__ == '__main__':
-    main()
+    # Filter predictions for the specified date range
+    mask = (forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))
+    predictions[ticker] = forecast.loc[mask]
+
+# Display predictions
+for ticker in tickers.split(','):
+    st.write(f"Predictions for {ticker}:")
+    st.write(predictions[ticker])
+
+    # Plot predictions
+    st.line_chart(predictions[ticker][['ds', 'yhat']])
 
