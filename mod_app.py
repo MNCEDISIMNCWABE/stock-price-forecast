@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 DEFAULT_TICKER = 'AAPL'
 
 # Define the Streamlit app
-st.title('Closing Stock Price Forecasting')
+st.title('Closing Stock Price Predictions')
 
 # Allow the user to input a ticker symbol
 ticker_input = st.text_input('Enter Company Symbol', DEFAULT_TICKER)
@@ -31,6 +31,7 @@ end_date = st.date_input('End Date')
 results = run_prophet(model, start_date, end_date)
 
 # Plot the predicted closing prices for the selected ticker and date range
+st.write("Prediction Plot:")
 fig = plot_plotly(model, results)
 st.plotly_chart(fig)
 
@@ -38,4 +39,5 @@ st.plotly_chart(fig)
 results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound'})
 
 # Display the predicted closing prices for the selected ticker and date range
+st.write('Predicted Closing Stock Prices:')
 st.write(results)
