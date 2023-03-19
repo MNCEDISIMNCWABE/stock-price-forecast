@@ -46,5 +46,5 @@ def run_prophet(model, start_date, end_date):
     data = data[(data['ds'] >= pd.to_datetime(start_date)) & (data['ds'] <= pd.to_datetime(end_date))]
     forecast = pd.merge(forecast, data, on='ds', how='left')
     
-    return forecast[['ds', 'y', 'yhat', 'yhat_lower', 'yhat_upper']]
+    return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
 
