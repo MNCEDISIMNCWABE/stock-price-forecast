@@ -1,23 +1,34 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[10]:
 
 
 import pandas as pd
+import yfinance as yf
 from prophet import Prophet
 
-def train_model(ticker):
-    # Download data from 2014-01-02 to current date
-    df = pd.read_csv(f"https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1=1388552400&period2=1616197200&interval=1d&events=history&includeAdjustedClose=true")
+def run_prophet(model, start_date, end_date):
+    # Make future dataframe for prediction date range
+    future = model.make_future_dataframe(periods=(end_date - start_date).days + 1, include_history=False)
 
-    # Prepare data for Prophet model
-    df = df[['Date', 'Close']]
-    df = df.rename(columns={'Date': 'ds', 'Close': 'y'})
+    # Make prediction
+    forecast = model.predict(future)
 
-    # Train model
-    model = Prophet(interval_width=0.95)
-    model.fit(df)
+    # Filter prediction for selected date range
+    forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
 
+    return forecast[['ds', 'yhat']]
+    
+def get_model(ticker):
+    # Download historical data from Yahoo Finance
+    data = yf.download(ticker, start='2014-01-02', end=pd.to_datetime("today").strftime("%Y-%m-%d"))[['Close']]
+    data.columns = ['y']
+    data['ds'] = data.index
+    
+    # Fit a Prophet model to the data
+    model = Prophet()
+    model.fit(data)
+    
     return model
 

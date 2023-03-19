@@ -6,44 +6,32 @@
 
 import streamlit as st
 import pandas as pd
-from prophet import Prophet
-import model
+from prophet.plot import plot_plotly
+from model import get_model, run_prophet
 
-# Set page title
-st.set_page_config(page_title="Stock Price Prediction App")
+# Set the default ticker symbol
+DEFAULT_TICKER = 'AAPL'
 
-# Set page title and subtitle
-st.title("Stock Price Prediction App")
-st.write("This app predicts the future stock prices of the selected company.")
+# Define the Streamlit app
+st.title('Stock Price Prediction with Prophet')
 
-# Set up user input
-tickers = st.text_input("Enter the tickers separated by commas (e.g., AAPL,GOOG,IBM)", value='CLS.JO')
-start_date = st.date_input("Start date:")
-end_date = st.date_input("End date:")
+# Allow the user to select a ticker symbol
+ticker = st.selectbox('Select Ticker', ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA'], DEFAULT_TICKER)
 
-# Train models for each ticker
-models = {}
-for ticker in tickers.split(','):
-    models[ticker] = model.train_model(ticker)
+# Get Prophet model for selected ticker
+model = get_model(ticker)
 
-# Make predictions
-predictions = {}
-for ticker in tickers.split(','):
-    # Create future dataframe
-    future = models[ticker].make_future_dataframe(periods=(end_date - start_date).days)
+# Allow the user to select a start and end date for the prediction
+start_date = st.date_input('Start Date')
+end_date = st.date_input('End Date')
 
-    # Make prediction
-    forecast = models[ticker].predict(future)
+# Run Prophet for the selected date range and store the results
+results = run_prophet(model, start_date, end_date)
 
-    # Filter predictions for the specified date range
-    mask = (forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))
-    predictions[ticker] = forecast.loc[mask]
+# Display the predicted closing prices for the selected ticker and date range
+st.write(results)
 
-# Display predictions
-for ticker in tickers.split(','):
-    st.write(f"Predictions for {ticker}:")
-    st.write(predictions[ticker])
-
-    # Plot predictions
-    st.line_chart(predictions[ticker][['ds', 'yhat']])
+# Plot the predicted closing prices for the selected ticker and date range
+fig = plot_plotly(model, results)
+st.plotly_chart(fig)
 
