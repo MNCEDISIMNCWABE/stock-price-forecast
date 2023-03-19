@@ -28,7 +28,7 @@ Author: [Mncedisi Mncwabe](https://www.linkedin.com/in/mncedisi-mncwabe-a1b08717
 
 
 # Allow the user to input a ticker symbol
-ticker_input = st.text_input('Enter Ticker/Company Symbol', DEFAULT_TICKER)
+ticker_input = st.text_input('Enter Ticker/Company Symbol:', DEFAULT_TICKER)
 
 # Get Prophet model for selected ticker
 model = get_model(ticker_input)
@@ -38,8 +38,8 @@ start_date = datetime.today().date()
 end_date = start_date + timedelta(days=730)
 
 # Allow the user to select a start and end date for the prediction
-start_date = st.date_input('Start Date', start_date)
-end_date = st.date_input('End Date', end_date)
+start_date = st.date_input('Start Date:', start_date)
+end_date = st.date_input('End Date:', end_date)
 
 # Run Prophet for the selected date range and store the results
 results = run_prophet(model, start_date, end_date)
