@@ -12,6 +12,8 @@ import yfinance as yf
 from prophet import Prophet
 from prophet.plot import plot_plotly
 from model import get_model, run_prophet
+import plotly
+import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 
 # Set the default ticker symbol
