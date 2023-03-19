@@ -21,7 +21,11 @@ def get_model(ticker):
     data['ds'] = data['ds'].dt.tz_localize(None)
 
     # Fit a Prophet model to the data
-    model = Prophet(interval_width=0.95)
+    model = Prophet(interval_width=0.95,
+                    changepoint_prior_scale=0.5,
+                    seasonality_prior_scale=0.01,
+                    seasonality_mode='additive',
+                    changepoint_range=0.99)
     model.fit(data)
 
     return model
