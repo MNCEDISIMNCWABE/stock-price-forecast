@@ -23,7 +23,7 @@ st.sidebar.markdown("""
 Please note that the author of this app is not a financial advisor and does not provide any investment advice. 
 The purpose of this app is only to demonstrate machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.  
 
-Author:[LinkedIn profile](https://www.linkedin.com/in/mncedisi-mncwabe-a1b087171/).
+Author: [Mncedisi Mncwabe](https://www.linkedin.com/in/mncedisi-mncwabe-a1b087171/).
 """)
 
 
