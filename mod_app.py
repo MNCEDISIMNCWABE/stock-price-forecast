@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 DEFAULT_TICKER = 'WHL.JO'
 
 # Define the Streamlit app
-st.title('Closing Stock Price Predictions')
+st.title('Closing Stock Price Predictions App')
 
 # Add disclaimer to the sidebar
 st.sidebar.markdown("""
