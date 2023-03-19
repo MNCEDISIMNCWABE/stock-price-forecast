@@ -34,5 +34,6 @@ results = run_prophet(model, start_date, end_date)
 st.write(results)
 
 # Plot the predicted closing prices for the selected ticker and date range
-fig = plot_plotly(model, results)
+#fig = plot_plotly(model, results)
+fig = plot_plotly(model, results, x='Date', y='Predicted Price')
 st.plotly_chart(fig)
