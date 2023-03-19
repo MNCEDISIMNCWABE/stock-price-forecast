@@ -30,6 +30,7 @@ def get_model(ticker):
 
     return model
 
+
 def run_prophet(model, start_date, end_date):
     # Make future dataframe for prediction date range
     future = model.make_future_dataframe(periods=(end_date - start_date).days + 1, include_history=False)
@@ -39,5 +40,11 @@ def run_prophet(model, start_date, end_date):
 
     # Filter prediction for selected date range
     forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
+
+    # Merge with original data to get the actual values
+    data = model.history[['ds', 'y']]
+    data = data[(data['ds'] >= pd.to_datetime(start_date)) & (data['ds'] <= pd.to_datetime(end_date))]
+    forecast = pd.merge(forecast, data, on='ds', how='left')
     
-    return forecast[['ds', 'yhat','yhat_lower','yhat_upper']]
+    return forecast[['ds', 'y', 'yhat', 'yhat_lower', 'yhat_upper']]
+
