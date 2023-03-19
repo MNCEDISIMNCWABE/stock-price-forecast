@@ -4,3 +4,4 @@ yfinance
 prophet
 streamlit
 datetime
+matplotlib.pyplot
