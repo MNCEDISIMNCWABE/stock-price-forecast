@@ -23,7 +23,7 @@ def get_model(ticker):
     model = Prophet(interval_width=0.95)
     model.fit(data)
 
-    return model
+    return data, model
 
 def run_prophet(model, start_date, end_date):
     # Make future dataframe for prediction date range
