@@ -20,13 +20,8 @@ st.title('Stock Price Prediction')
 # Allow the user to input a ticker symbol
 ticker_input = st.text_input('Enter Ticker Symbol', DEFAULT_TICKER)
 
-# Validate the ticker symbol and get Prophet model for selected ticker
-try:
-    yf.Ticker(ticker_input).info  # Check if ticker is valid
-    model = get_model(ticker_input)
-except:
-    st.error('Invalid Ticker Symbol')
-    st.stop()
+# Get Prophet model for selected ticker
+model = get_model(ticker_input)
 
 # Allow the user to select a start and end date for the prediction
 start_date = st.date_input('Start Date')
