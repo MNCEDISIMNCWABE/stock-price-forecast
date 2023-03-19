@@ -34,7 +34,7 @@ def run_prophet(model, start_date, end_date):
     # Filter prediction for selected date range
     forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
 
-    return forecast[['ds', 'yhat']]
+    return forecast[['ds', 'yhat','yhat_lower','yhat_upper']]
 
 
 # In[ ]:
