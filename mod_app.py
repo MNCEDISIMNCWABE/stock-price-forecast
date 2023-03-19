@@ -49,5 +49,5 @@ st.plotly_chart(fig)
 results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound'})
 
 # Display the predicted closing prices for the selected ticker and date range
-st.write('Predicted Closing Stock Prices:')
+st.write('***Predicted Closing Stock Prices:***')
 st.write(results)
