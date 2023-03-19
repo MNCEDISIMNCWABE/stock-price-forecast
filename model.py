@@ -18,7 +18,7 @@ def get_model(ticker):
     data['y'] = data['y']/100
 
     # Convert timezone-aware column to timezone-naive column
-    data['Date'] = data['Date'].dt.tz_localize(None)
+    data['ds'] = data['ds'].dt.tz_localize(None)
 
     # Fit a Prophet model to the data
     model = Prophet(interval_width=0.95)
