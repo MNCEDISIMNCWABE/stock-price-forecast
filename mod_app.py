@@ -5,10 +5,11 @@ from datetime import datetime
 import yfinance as yf
 from prophet import Prophet
 from prophet.plot import plot_plotly
-from model import get_model, run_prophet
 import plotly
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
+
+from model import get_model, run_prophet
 
 
 # Set the default ticker symbol
@@ -59,7 +60,7 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 # Rename the columns of the results dataframe
-results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound', 'y': 'Actual Price'})
+results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound', 'Actual Price': 'Actual Closing Price'})
 
 # Display the predicted and actual closing prices for the selected ticker and date range
 st.write('Predicted and Actual Closing Stock Prices:')
