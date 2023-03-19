@@ -5,9 +5,14 @@
 
 
 import streamlit as st
+import numpy as np
 import pandas as pd
+from datetime import datetime
+import yfinance as yf
+from prophet import Prophet
 from prophet.plot import plot_plotly
 from model import get_model, run_prophet
+import matplotlib.pyplot as plt
 
 # Set the default ticker symbol
 DEFAULT_TICKER = 'AAPL'
