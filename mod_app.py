@@ -28,7 +28,10 @@ start_date = st.date_input('Start Date')
 end_date = st.date_input('End Date')
 
 # Run Prophet for the selected date range and store the results
-results = run_prophet(model, start_date, end_date)
+#results = run_prophet(model, start_date, end_date)
+# Rename the columns of the results dataframe
+results = results.rename(columns={'ds': 'Date', 'yhat': 'Predicted Price', 'yhat_lower': 'Predicted Lower Bound', 'yhat_upper': 'Predicted Upper Bound'})
+
 
 # Display the predicted closing prices for the selected ticker and date range
 st.write(results)
