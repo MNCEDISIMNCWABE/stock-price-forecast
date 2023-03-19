@@ -23,8 +23,8 @@ def get_model(ticker):
     # Fit a Prophet model to the data
     model = Prophet(interval_width=0.95,
                     changepoint_prior_scale=0.5,
-                    seasonality_prior_scale=0.01,
-                    seasonality_mode='additive'
+                    seasonality_prior_scale=0.01
+                    #seasonality_mode='additive'
                     )
     model.fit(data)
 
