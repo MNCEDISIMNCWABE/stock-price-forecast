@@ -1,27 +1,28 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[10]:
-
-
 import pandas as pd
 import numpy as np
 from datetime import datetime
 import yfinance as yf
 from prophet import Prophet
+import plotly
 from prophet.plot import plot_plotly
+import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 
 def get_model(ticker):
-    # Download historical data from Yahoo Finance
-    data = yf.download(ticker, start='2014-01-02', end=pd.to_datetime("today").strftime("%Y-%m-%d"))[['Close']]
+    # Use yf.Ticker to get historical data
+    ticker_obj = yf.Ticker(ticker)
+    data = ticker_obj.history(period='max', interval='1d')[['Close']]
+    data = data.rename(columns={'Close': 'y'})
     data.columns = ['y']
     data['ds'] = data.index
-    
+
+    # Convert timezone-aware column to timezone-naive column
+    data['ds'] = data['ds'].dt.tz_localize(None)
+
     # Fit a Prophet model to the data
-    model = Prophet()
+    model = Prophet(interval_width=0.95)
     model.fit(data)
-    
+
     return model
 
 def run_prophet(model, start_date, end_date):
@@ -35,10 +36,3 @@ def run_prophet(model, start_date, end_date):
     forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
 
     return forecast[['ds', 'yhat','yhat_lower','yhat_upper']]
-
-
-# In[ ]:
-
-
-
-
