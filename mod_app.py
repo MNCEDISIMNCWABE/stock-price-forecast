@@ -15,13 +15,13 @@ from model import get_model, run_prophet
 import matplotlib.pyplot as plt
 
 # Set the default ticker symbol
-DEFAULT_TICKER = 'AAPL'
+#DEFAULT_TICKER = 'AAPL'
 
 # Define the Streamlit app
 st.title('Stock Price Prediction with Prophet')
 
 # Allow the user to select a ticker symbol
-ticker = st.selectbox('Select Ticker', ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA'], DEFAULT_TICKER)
+ticker = st.selectbox('Select Ticker', ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA'], index=0)
 
 # Get Prophet model for selected ticker
 model = get_model(ticker)
