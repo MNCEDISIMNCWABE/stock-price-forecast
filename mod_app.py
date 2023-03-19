@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -16,17 +10,23 @@ import plotly
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 
+
 # Set the default ticker symbol
-#DEFAULT_TICKER = 'AAPL'
+DEFAULT_TICKER = 'AAPL'
 
 # Define the Streamlit app
-st.title('Stock Price Prediction with Prophet')
+st.title('Stock Price Prediction')
 
-# Allow the user to select a ticker symbol
-ticker = st.selectbox('Select Ticker', ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'FB', 'TSLA'], index=0)
+# Allow the user to input a ticker symbol
+ticker_input = st.text_input('Enter Ticker Symbol', DEFAULT_TICKER)
 
-# Get Prophet model for selected ticker
-model = get_model(ticker)
+# Validate the ticker symbol and get Prophet model for selected ticker
+try:
+    yf.Ticker(ticker_input).info  # Check if ticker is valid
+    model = get_model(ticker_input)
+except:
+    st.error('Invalid Ticker Symbol')
+    st.stop()
 
 # Allow the user to select a start and end date for the prediction
 start_date = st.date_input('Start Date')
@@ -41,4 +41,3 @@ st.write(results)
 # Plot the predicted closing prices for the selected ticker and date range
 fig = plot_plotly(model, results)
 st.plotly_chart(fig)
-
