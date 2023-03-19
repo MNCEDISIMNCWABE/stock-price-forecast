@@ -35,5 +35,7 @@ def run_prophet(model, start_date, end_date):
 
     # Filter prediction for selected date range
     forecast = forecast[(forecast['ds'] >= pd.to_datetime(start_date)) & (forecast['ds'] <= pd.to_datetime(end_date))]
+    forecast = forecast.rename(columns={'ds':'Date', 'yhat': 'Predicted','yhat_lower':'Predicted Lower Bound',
+                                        'yhat_upper':'Predicted Upper Bound'})
 
-    return forecast[['ds', 'yhat','yhat_lower','yhat_upper']]
+    return forecast[['Date', 'Predicted Price','Predicted Lower Bound','Predicted Upper Bound']]
