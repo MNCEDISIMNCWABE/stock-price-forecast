@@ -18,7 +18,7 @@ DEFAULT_TICKER = 'AAPL'
 st.title('Closing Stock Price Forecasting App')
 
 # Allow the user to input a ticker symbol
-ticker_input = st.text_input('Enter Company Symbol', DEFAULT_TICKER)
+ticker_input = st.text_input('Enter Ticker/Company Symbol', DEFAULT_TICKER)
 
 # Get Prophet model for selected ticker
 model = get_model(ticker_input)
