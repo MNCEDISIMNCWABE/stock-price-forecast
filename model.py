@@ -14,7 +14,7 @@ def get_model(ticker):
     data = ticker_obj.history(period='max', interval='1d')[['Close']]
     data = data.rename(columns={'Close': 'y'})
     data.columns = ['y']
-    data['Date'] = data.index
+    data['ds'] = data.index
     data['y'] = data['y']/100
 
     # Convert timezone-aware column to timezone-naive column
