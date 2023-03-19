@@ -6,4 +6,3 @@ streamlit
 datetime
 matplotlib
 plotly
-plotly.graph_objs
