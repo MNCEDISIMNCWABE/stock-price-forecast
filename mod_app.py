@@ -35,7 +35,7 @@ model = get_model(ticker_input)
 
 # Set the default start and end dates
 start_date = datetime.today().date()
-end_date = start_date + timedelta(days=730)
+end_date = start_date + timedelta(days=1095)
 
 # Allow the user to select a start and end date for the prediction
 start_date = st.date_input('Start Date:', start_date)
