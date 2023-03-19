@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 DEFAULT_TICKER = 'AAPL'
 
 # Define the Streamlit app
-st.title('Closing Stock Price Predictions')
+st.title('Closing Stock Price Forecasting App')
 
 # Allow the user to input a ticker symbol
 ticker_input = st.text_input('Enter Company Symbol', DEFAULT_TICKER)
