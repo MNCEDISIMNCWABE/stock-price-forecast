@@ -15,6 +15,7 @@ def get_model(ticker):
     data = data.rename(columns={'Close': 'y'})
     data.columns = ['y']
     data['ds'] = data.index
+    data['y'] = data['y']/100
 
     # Convert timezone-aware column to timezone-naive column
     data['ds'] = data['ds'].dt.tz_localize(None)
