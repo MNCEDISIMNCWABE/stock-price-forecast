@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 import yfinance as yf
 from prophet import Prophet
 from prophet.plot import plot_plotly
@@ -33,11 +33,9 @@ ticker_input = st.text_input('Enter Ticker/Company Symbol', DEFAULT_TICKER)
 # Get Prophet model for selected ticker
 model = get_model(ticker_input)
 
-from datetime import datetime, timedelta
-
 # Set the default start and end dates
-end_date = datetime.today().date()
-start_date = end_date - timedelta(days=730)
+start_date = datetime.today().date()
+end_date = start_date + timedelta(days=730)
 
 # Allow the user to select a start and end date for the prediction
 start_date = st.date_input('Start Date', start_date)
