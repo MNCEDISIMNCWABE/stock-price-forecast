@@ -25,8 +25,8 @@ The model is trained and tested on the historical stock price data from Yahoo Fi
 The results are presented in the form of a table and graph with a 95% confidence interval of the predicted stock price.
 
 **Disclaimer:**  
-Kindly be advised that the creator of this application is not a financial expert and does not offer any investment recommendations. 
-The sole aim of this app is to showcase the machine learning process using tools and techniques such as GitHub, Python, and Streamlit. 
+Kindly be advised that the creator of this app is not a financial expert and does not offer any investment recommendations. 
+The sole aim of this app is to showcase the Machine Learning process using tools and techniques such as GitHub, Python, and Streamlit. 
 
 Author: [Mncedisi Mncwabe](https://www.linkedin.com/in/mncedisi-mncwabe-a1b087171/).
 """)
