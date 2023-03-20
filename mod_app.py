@@ -20,7 +20,7 @@ st.title('Closing Stock Price Predictions App')
 # Add disclaimer to the sidebar
 st.sidebar.markdown("""
 The app allows users to easily type a company's ticker symbol as listed on Yahoo Finance, 
-the date range and then the app will run that through the model to predict the closing stock price for the selected dates. 
+the date range and then the app will run that through the model to predict the closing stock price for the selected date(s). 
 The model is trained and tested on the historical stock price data from Yahoo Finance.
 The results are presented in the form of a table and graph with a 95% confidence interval of the predicted stock price.
 
