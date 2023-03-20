@@ -26,8 +26,8 @@ When you type the company ticker symbol, the app is able to take live data from 
 The results are presented in the form of a table and graph. The results also contain a 95% confidence interval (lower and upper bound) of the predicted stock price.
 
 **Disclaimer:**  
-Please note that the author of this app is not a financial advisor and does not provide any investment advice. 
-The purpose of this app is only to demonstrate machine learning lifecycle using techniques & tools like GitHub, Python, and Streamlit.  
+Kindly be advised that the creator of this application is not a financial expert and does not offer any investment recommendations. 
+The sole aim of this app is to showcase the machine learning process using tools and techniques such as GitHub, Python, and Streamlit. 
 
 Author: [Mncedisi Mncwabe](https://www.linkedin.com/in/mncedisi-mncwabe-a1b087171/).
 """)
