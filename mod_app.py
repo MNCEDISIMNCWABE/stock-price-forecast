@@ -22,8 +22,7 @@ st.sidebar.markdown("""
 The app allows users to easily type a company's ticker symbol as listed on Yahoo Finance, 
 the date range and then the app will predict the closing stock price for the selected dates. 
 The model is trained and tested on the historical stock price data from Yahoo Finance.
-When you type the company ticker symbol, the app is able to take data from the Yahoo Finance and run it through the model to provide a prediction.
-The results are presented in the form of a table and graph. The results also contain a 95% confidence interval of the predicted stock price.
+The results are presented in the form of a table and graph with a 95% confidence interval of the predicted stock price.
 
 **Disclaimer:**  
 Kindly be advised that the creator of this application is not a financial expert and does not offer any investment recommendations. 
